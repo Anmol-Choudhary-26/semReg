@@ -1,0 +1,22 @@
+{
+  "name": "semregistration",
+  "version": "1.0.0",
+  "description": "Backend API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Anmol",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "mongoose": "^6.9.1"
+  }
+}
