@@ -10,6 +10,6 @@ const {
 } = require('../controllers/DocControllers')
 
 router.route('/').get(getAllDocs).post(createDoc)
-router.route('/:id').get(getDoc).patch(updateDoc).delete(deleteDoc)
+router.route('/odoc').get(getDoc).patch(updateDoc).delete(deleteDoc)
 
 module.exports = router

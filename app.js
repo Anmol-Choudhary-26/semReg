@@ -1,29 +1,32 @@
 const express = require('express')
 const app = express()
 const helmet = require('helmet')
+const authRouter = require('./routes/auth');
 const User = require('./models/userModel')
 const connectDb = require('./db/connection')
 require('dotenv').config()
 const UserRoute = require('./routes/userRoutes')
 const DocRoute = require('./routes/DocRoutes')
-const port =  process.env.PORT || 3000
-
+const port =  process.env.PORT || 8080
+const authMiddleware = require('./middleware/auth')
+const teacher = require('./routes/teacherRoutes')
 // middleware
 
 app.use(express.static('./public'));
 app.use(express.json());
-
+app.use('/auth', authRouter);
+app.use('/', authMiddleware)
 // app.use(helmet())
 // app.use(helmet.xssFilter());
 // app.use(helmet.frameguard({ action: 'deny' }))
 // app.use(helmet.noSniff())
 // app.use(helmet.ieNoOpen())
 
-app.get('/', (req,res) =>{
-    res.send('Hello World')
-})
-app.use('/Semreg/user', UserRoute)
-app.use('/Semreg/Doc', DocRoute)
+app.use('/semreg/user', UserRoute)
+app.use('/semreg/doc',  DocRoute)
+app.use('/semreg/teacher', teacher)
+
+// Database connection
 
 const start = () => {
   try {

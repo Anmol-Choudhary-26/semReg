@@ -13,19 +13,18 @@ const createDoc = asyncWrapper(async (req, res) => {
 })
 
 const getDoc = asyncWrapper(async (req, res, next) => {
-    const { id: DocID } = req.params
-    const Doc = await doc.findOne({ _id: DocID })
+    const Doc = await doc.findOne({ _id: req.body.id })
     if(!Doc){
-        return next(createCustomError(`No task with id : ${DocID}`, 404))
+        return next(createCustomError(`No task with id : ${req.body.id}`, 404))
     }
     res.status(200).json({ User })
 })
 
 const deleteDoc = asyncWrapper(async (req, res, next) => {
     const { id: DocID } = req.params
-    const Doc = await doc.findOneAndDelete({_id:DocID})
+    const Doc = await doc.findOneAndDelete({_id:req.body.id})
     if(!Doc){
-        return next(createCustomError(`No task with id : ${DocID}`, 404))
+        return next(createCustomError(`No task with id : ${req.body.id}`, 404))
     }
     res.status(200).json({ User })
 })
@@ -33,7 +32,7 @@ const deleteDoc = asyncWrapper(async (req, res, next) => {
 const updateDoc = asyncWrapper(async (req, res, next) => {
     const { id: DocID } = req.params
   
-    const Doc = await doc.findOneAndUpdate({ _id: DocID }, req.body, {
+    const Doc = await doc.findOneAndUpdate({ _id:req.body.id}, req.body, {
       new: true,
       runValidators: true,
     })
