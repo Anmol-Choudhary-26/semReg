@@ -9,6 +9,7 @@ const getAllTasks = asyncWrapper(async (req, res) => {
 
 const createTask = asyncWrapper(async (req, res) => {
   const User = await user.create(req.body)
+  
   res.status(201).json({ User })
 })
 

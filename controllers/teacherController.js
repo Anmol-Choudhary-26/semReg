@@ -1,6 +1,6 @@
 const { createCustomError } = require('../errors/custom-error');
 const TeacherModel = require('../models/teacherModel')
-
+const StudentModel = require('../models/userModel')
 let TeacherController = {
     find: async (req, res) =>{
         let found = await TeacherController.find({name: req.params.id})
@@ -18,7 +18,7 @@ let TeacherController = {
     getAllStudent: async (req, res) =>{
             try{
 
-                let allStudent = await TeacherModel.find({_id: req.body.id}).populate("students")
+                let allStudent = await StudentModel.find({Teacher: req.body.id}).sort({roll_no: -1})
                 res.json(allStudent)
             }
             catch(err){
@@ -49,7 +49,38 @@ let TeacherController = {
         console.log(err)
     }
 
-}
+},
+ 
+  sortStudent: async (req, res) =>{
+    try {
+        let allStudent = await StudentModel.find({Teacher: req.body.id, registrationCompleted : true})
+        .sort({name: -1})
+      res.status(200).json(allStudent);
+    } catch (e) {
+      console.log(e);
+      res.status(500).json(e);
+    }
+  },
+  filterStudent: async (req, res) =>{
+    try {
+        let allStudent = await StudentModel.find({Teacher: req.body.id, registrationCompleted : true})
+        .sort({name: -1})
+      res.status(200).json(allStudent);
+    } catch (e) {
+      console.log(e);
+      res.status(500).json(e);
+    }
+  },
+  NonfilterStudent: async (req, res) =>{
+    try {
+        let allStudent = await StudentModel.find({Teacher: req.body.id, registrationCompleted : false})
+        .sort({name: -1})
+      res.status(200).json(allStudent);
+    } catch (e) {
+      console.log(e);
+      res.status(500).json(e);
+    }
+  }
 }
 
 module.exports = TeacherController

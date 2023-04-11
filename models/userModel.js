@@ -39,7 +39,25 @@ const UserSchema = new mongoose.Schema({
   Teacher:{
     type: mongoose.Schema.Types.ObjectId,
     ref:'Teacher'
-  }  
+  },
+  Dob:{
+   type: Date,
+  },
+  Semester:{
+    type:Number
+  },
+  Gender:{
+   type:String,
+   enum: ['Male', 'Female'],
+   default: 'Male'
+  },
+  Caste:{
+    type:String,
+    enum: ['General', 'Obc', 'Sc/St'], default:'General'
+  },
+  registrationCompleted:{
+    type:Boolean,
+  }
 })
 
 module.exports = mongoose.model('User', UserSchema)

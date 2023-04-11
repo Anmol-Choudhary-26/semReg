@@ -1,4 +1,6 @@
+const Doc = require('./models/UserDocument')
 const express = require('express')
+const fileUpload = require('express-fileupload')
 const app = express()
 const helmet = require('helmet')
 const authRouter = require('./routes/auth');
@@ -11,7 +13,12 @@ const port =  process.env.PORT || 8080
 const authMiddleware = require('./middleware/auth')
 const teacher = require('./routes/teacherRoutes')
 // middleware
-
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 app.use(express.static('./public'));
 app.use(express.json());
 app.use('/auth', authRouter);
@@ -25,6 +32,26 @@ app.use('/', authMiddleware)
 app.use('/semreg/user', UserRoute)
 app.use('/semreg/doc',  DocRoute)
 app.use('/semreg/teacher', teacher)
+
+
+app.use(fileUpload())
+
+app.post('/upload', (req, res) => {
+  const { registrationForm, feeReceipt, castCertificate1, incomeCertificate1 } = req.files
+  const userId = req.body.id
+  const doc = new Doc({
+    registrationForm: registrationForm.data,
+    feeReceipt: feeReceipt.data,
+    modelAId:userId,
+    incomeCertificate:incomeCertificate1.data,
+    castCertificate:castCertificate1.data
+  })
+
+  doc.save()
+    .then(() => res.status(200).send('File uploaded successfully'))
+    .catch(err => res.status(500).send(err.message))
+})
+
 
 // Database connection
 
