@@ -1,5 +1,7 @@
 const doc = require('../models/UserDocument')
 const asyncWrapper = require('../middleware/async')
+// const express = require('express')
+// const fileUpload = require('express-fileupload')
 const { createCustomError } = require('../errors/custom-error')
 
 const getAllDocs = asyncWrapper(async (req, res) => {
@@ -8,6 +10,19 @@ const getAllDocs = asyncWrapper(async (req, res) => {
 })
 
 const createDoc = asyncWrapper(async (req, res) => {
+  // const { registrationForm,feeDecuction, feeReceipt,incomeCertificate, castCertificate } = req.files
+
+  // const Doc = new doc({
+  //   registrationForm: registrationForm.data,
+  //   feeDecuction : feeDecuction,
+  //   feeReceipt: feeReceipt.data,
+  //   incomeCertificate : incomeCertificate,
+  //   castCertificate : castCertificate
+  // })
+
+  // Doc.save()
+  //   .then(() => res.status(200).send('File uploaded successfully'))
+  //   .catch(err => res.status(500).send(err.message))
     const Doc = await doc.create(req.body)
     res.status(201).json({ Doc })
 })

@@ -4,12 +4,11 @@ const { createCustomError } = require('../errors/custom-error')
 
 const getAllTasks = asyncWrapper(async (req, res) => {
   const User = await user.find({})
-  res.status(200).json({ User })
+  res.status(200).json( {User })
 })
 
 const createTask = asyncWrapper(async (req, res) => {
   const User = await user.create(req.body)
-  
   res.status(201).json({ User })
 })
 
@@ -21,6 +20,7 @@ const getTask = asyncWrapper(async (req, res, next) => {
 
   res.status(200).json({ User })
 })
+
 const deleteTask = asyncWrapper(async (req, res, next) => {
   const User = await user.findOneAndDelete({ _id: req.body.id })
   if (!User) {

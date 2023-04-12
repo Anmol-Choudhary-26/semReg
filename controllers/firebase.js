@@ -34,14 +34,14 @@ const firebaseConfig = {
           console.log("verification link send")
           status(req.user)
         })
-        res.status(200).send("verification link send")
+        res.status(200).json({msg : "verification link send"})
       })
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        res.status(400).send(errorMessage)
+        res.status(400).json({msg: errorCode})
       });
     }
   
@@ -69,19 +69,16 @@ const firebaseConfig = {
                 const token = jwt.sign({ id, email }, "hellomfs", {
                   expiresIn: '30d',
                 })
-                res.status(200).json({ msg: 'user created', token })
+                res.status(200).json({ msg: 'User Created', token, email })
               }
               else{
                 console.log("email not verified")
-                res.status(401).redirect('/login')
+                res.status(401).json({msg:"Email not Verified"})
               }
             })
             .catch((error) => {
               var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log(errorCode);
-              console.log(errorMessage);
-              res.status(500).send("Login failed")
+              res.status(500).json({msg:errorCode})
             });
            }
           
