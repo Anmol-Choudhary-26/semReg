@@ -4,7 +4,12 @@ const StudentModel = require('../models/userModel')
 let TeacherController = {
     find: async (req, res) =>{
         let found = await TeacherController.find({name: req.params.id})
-        res.json(found);
+        if(found){
+          res.json(found);
+        }
+        else{
+          res.json({msg:"Teacher not found"})
+        }
     },
     all: async (req, res) => {
         let all = await TeacherModel.find()
@@ -18,7 +23,7 @@ let TeacherController = {
     getAllStudent: async (req, res) =>{
             try{
 
-                let allStudent = await StudentModel.find({Teacher: req.body.id}).sort({roll_no: -1})
+                let allStudent = await StudentModel.find({Teacher: req.params.id}).sort({roll_no: -1})
                 res.json(allStudent)
             }
             catch(err){
@@ -27,9 +32,9 @@ let TeacherController = {
     },
     deleteTeacher: async (req, res) =>{
         try{
-            let deletedTeacher = await TeacherModel.findByIdAndDelete({_id:req.body.id})
+            let deletedTeacher = await TeacherModel.findByIdAndDelete({_id:req.params.id})
             if (!deletedTeacher) {
-                return next(createCustomError(`No Teacher with id : ${req.body.id}`, 404))
+                return next(createCustomError(`No Teacher with id : ${req.params.id}`, 404))
               }
             res.json("Teacher deleted successfully")
         }
@@ -39,9 +44,9 @@ let TeacherController = {
     },
     UpdateTeacher: async (req, res) =>{
         try{
-            let UpdateTeacher = await TeacherModel.findByIdAndUpdate(req.body.id)
+            let UpdateTeacher = await TeacherModel.findByIdAndUpdate(req.params.id)
             if (!UpdateTeacher) {
-                return next(createCustomError(`No Teacher with id: ${req.body.id}`, 404))
+                return next(createCustomError(`No Teacher with id: ${req.params.id}`, 404))
     }
     res.json("Teacher Updated ")
 }
@@ -50,10 +55,9 @@ let TeacherController = {
     }
 
 },
- 
   sortStudent: async (req, res) =>{
     try {
-        let allStudent = await StudentModel.find({Teacher: req.body.id, registrationCompleted : true})
+        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : true})
         .sort({name: -1})
       res.status(200).json(allStudent);
     } catch (e) {
@@ -63,7 +67,7 @@ let TeacherController = {
   },
   filterStudent: async (req, res) =>{
     try {
-        let allStudent = await StudentModel.find({Teacher: req.body.id, registrationCompleted : true})
+        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : true})
         .sort({name: -1})
       res.status(200).json(allStudent);
     } catch (e) {
@@ -73,7 +77,7 @@ let TeacherController = {
   },
   NonfilterStudent: async (req, res) =>{
     try {
-        let allStudent = await StudentModel.find({Teacher: req.body.id, registrationCompleted : false})
+        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : false})
         .sort({name: -1})
       res.status(200).json(allStudent);
     } catch (e) {
