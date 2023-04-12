@@ -23,9 +23,6 @@ const DocSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
      ref: 'userModel',
     } ,
-    remark:{
-      type: String,
-    }
 })
 
 

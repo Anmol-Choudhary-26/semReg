@@ -57,6 +57,9 @@ const UserSchema = new mongoose.Schema({
   },
   registrationCompleted:{
     type:Boolean,
+  },
+  remark:{
+    type: String,
   }
 })
 

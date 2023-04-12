@@ -6,6 +6,7 @@ const createUserWithEmailAndPassword = require('firebase/auth').createUserWithEm
 const sed = require('firebase/auth').sendEmailVerification;
 const onAuthStateChanged = require('firebase/auth').onAuthStateChanged
 const signInWithEmailAndPassword = require('firebase/auth').signInWithEmailAndPassword
+const signout = require('firebase/auth').signOut
 const Vtoken = require('firebase/auth')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv').config()
@@ -82,4 +83,16 @@ const firebaseConfig = {
             });
            }
           
-module.exports = {signin, createuser, status}
+function SIGNout(req, res){
+  const user = auth.currentUser
+  if(user){
+  signout(auth).then(() => {
+   res.status(200).json({msg:"LOGOUT SUCCESSFULL"})
+  }).catch((error) => {
+    res.status(500).json({msg: error.message})
+  });
+}else{
+res.status(403).json({msg:"USER ALREADY LOGGED OUT"})
+}
+}
+module.exports = {signin, createuser, status, SIGNout}
