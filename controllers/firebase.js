@@ -70,7 +70,7 @@ const firebaseConfig = {
                 const token = jwt.sign({ id, email }, "hellomfs", {
                   expiresIn: '30d',
                 })
-                res.status(200).json({ msg: 'User Created', token, email })
+                res.status(200).json({ msg: 'User Created',id, token, email })
               }
               else{
                 console.log("email not verified")
