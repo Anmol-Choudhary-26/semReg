@@ -3,7 +3,7 @@ const TeacherModel = require('../models/teacherModel')
 const StudentModel = require('../models/userModel')
 let TeacherController = {
     find: async (req, res) =>{
-        let found = await TeacherModel.find({fbid: req.params.id}).populate("students")
+        let found = await TeacherModel.findOne({fbid: req.params.id}).populate("students")
         // console.log( typeof found)
         if(found.length != 0){
           res.json(found);
