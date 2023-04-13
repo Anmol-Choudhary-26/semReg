@@ -28,36 +28,38 @@ const createDoc = asyncWrapper(async (req, res) => {
 })
 
 const getDoc = asyncWrapper(async (req, res, next) => {
-    const Doc = await doc.findOne({ _id: req.body.id })
+    const Doc = await doc.findOne({ modelAId: req.params.id })
     if(!Doc){
-        return next(createCustomError(`No task with id : ${req.body.id}`, 404))
+      res.status(404).json({msg:"Doc not found"})
     }
-    res.status(200).json({ User })
+    res.status(200).json({ Doc })
 })
 
 const deleteDoc = asyncWrapper(async (req, res, next) => {
-    const { id: DocID } = req.params
-    const Doc = await doc.findOneAndDelete({_id:req.body.id})
+    
+    const Doc = await doc.findOneAndDelete({_id:req.params.id})
     if(!Doc){
-        return next(createCustomError(`No task with id : ${req.body.id}`, 404))
+      res.status(404).json({msg:"Doc not found"})
     }
-    res.status(200).json({ User })
+    res.status(200).json({ Doc })
 })
 
 const updateDoc = asyncWrapper(async (req, res, next) => {
     const { id: DocID } = req.params
   
-    const Doc = await doc.findOneAndUpdate({ _id:req.body.id}, req.body, {
+    const Doc = await doc.findOneAndUpdate({ modelAId:req.params.id}, req.body, {
       new: true,
       runValidators: true,
     })
   
     if (!Doc) {
-      return next(createCustomError(`No task with id : ${userID}`, 404))
+      res.status(404).json({msg:"Doc not found"})
     }
   
     res.status(200).json({ Doc })
   })
+
+
 
   module.exports = {
     getAllDocs,
