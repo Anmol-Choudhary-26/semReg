@@ -68,7 +68,7 @@ let TeacherController = {
   },
   filterStudent: async (req, res) =>{
     try {
-        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : true})
+        let allStudent = await StudentModel.find({teacher: req.params.id, registrationCompleted : true})
         .sort({name: -1})
       res.status(200).json(allStudent);
     } catch (e) {
@@ -78,7 +78,7 @@ let TeacherController = {
   },
   NonfilterStudent: async (req, res) =>{
     try {
-        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : false})
+        let allStudent = await StudentModel.find({teacher: req.params.id, registrationCompleted : false})
         .sort({name: -1})
       res.status(200).json(allStudent);
     } catch (e) {
