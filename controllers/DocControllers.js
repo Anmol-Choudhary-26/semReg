@@ -6,7 +6,7 @@ const { createCustomError } = require('../errors/custom-error')
 
 const getAllDocs = asyncWrapper(async (req, res) => {
     const Doc = await doc.find({})
-    res.status(200).json({ Doc })
+    res.status(200).json( Doc )
 })
 
 const createDoc = asyncWrapper(async (req, res) => {
@@ -24,7 +24,7 @@ const createDoc = asyncWrapper(async (req, res) => {
   //   .then(() => res.status(200).send('File uploaded successfully'))
   //   .catch(err => res.status(500).send(err.message))
     const Doc = await doc.create(req.body)
-    res.status(201).json({ Doc })
+    res.status(201).json( Doc )
 })
 
 const getDoc = asyncWrapper(async (req, res, next) => {
@@ -32,7 +32,7 @@ const getDoc = asyncWrapper(async (req, res, next) => {
     if(!Doc){
       res.status(404).json({msg:"Doc not found"})
     }
-    res.status(200).json({ Doc })
+    res.status(200).json( Doc )
 })
 
 const deleteDoc = asyncWrapper(async (req, res, next) => {
@@ -41,7 +41,7 @@ const deleteDoc = asyncWrapper(async (req, res, next) => {
     if(!Doc){
       res.status(404).json({msg:"Doc not found"})
     }
-    res.status(200).json({ Doc })
+    res.status(200).json( Doc )
 })
 
 const updateDoc = asyncWrapper(async (req, res, next) => {
@@ -56,7 +56,7 @@ const updateDoc = asyncWrapper(async (req, res, next) => {
       res.status(404).json({msg:"Doc not found"})
     }
   
-    res.status(200).json({ Doc })
+    res.status(200).json( Doc )
   })
 
 
