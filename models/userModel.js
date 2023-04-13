@@ -48,7 +48,8 @@ const UserSchema = new mongoose.Schema({
    type: Date,
   },
   Semester:{
-    type:Number
+    type:Number,
+    default: 6
   },
   Gender:{
    type:String,
