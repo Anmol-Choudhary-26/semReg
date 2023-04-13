@@ -8,7 +8,7 @@ let TeacherController = {
           res.json(found);
         }
         else{
-          res.json({msg:"Teacher not found"})
+          res.status(400).json({msg:"Teacher not found"})
         }
     },
     all: async (req, res) => {
@@ -34,7 +34,7 @@ let TeacherController = {
         try{
             let deletedTeacher = await TeacherModel.findByIdAndDelete({_id:req.params.id})
             if (!deletedTeacher) {
-              res.status(404).json({msg:`No Teacher with id : ${req.params.id}`})
+              res.status(400).json({msg:"Teacher not found"})
               }
             res.json("Teacher deleted successfully")
         }
@@ -46,7 +46,7 @@ let TeacherController = {
         try{
             let UpdateTeacher = await TeacherModel.findByIdAndUpdate(req.params.id)
             if (!UpdateTeacher) {
-              res.status(404).json({msg:`No Teacher with id : ${req.params.id}`})
+              res.status(400).json({msg:"Teacher not found"})
     }
     res.json("Teacher Updated ")
 }
