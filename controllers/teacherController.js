@@ -34,7 +34,7 @@ let TeacherController = {
         try{
             let deletedTeacher = await TeacherModel.findByIdAndDelete({_id:req.params.id})
             if (!deletedTeacher) {
-                return next(createCustomError(`No Teacher with id : ${req.params.id}`, 404))
+              res.status(404).json({msg:`No Teacher with id : ${req.params.id}`})
               }
             res.json("Teacher deleted successfully")
         }
@@ -46,7 +46,7 @@ let TeacherController = {
         try{
             let UpdateTeacher = await TeacherModel.findByIdAndUpdate(req.params.id)
             if (!UpdateTeacher) {
-                return next(createCustomError(`No Teacher with id: ${req.params.id}`, 404))
+              res.status(404).json({msg:`No Teacher with id : ${req.params.id}`})
     }
     res.json("Teacher Updated ")
 }

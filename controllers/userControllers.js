@@ -15,7 +15,7 @@ const createTask = asyncWrapper(async (req, res) => {
 const getTask = asyncWrapper(async (req, res, next) => {
   const User = await user.findOne({_id : req.params.id})
   if (!User) {
-    return next(createCustomError(`No user with id : ${req.params.id}`, 404))
+   res.status(404).json({msg:`No user with id : ${req.params.id}`})
   }
 
   res.status(200).json({ User })
@@ -24,7 +24,7 @@ const getTask = asyncWrapper(async (req, res, next) => {
 const deleteTask = asyncWrapper(async (req, res, next) => {
   const User = await user.findOneAndDelete({ _id: req.params.id })
   if (!User) {
-    return next(createCustomError(`No user with id : ${req.params.id}`, 404))
+    res.status(400).json({msg:`No user with id : ${req.params.id}`})
   }
   res.status(200).json({ User })
 })
@@ -35,7 +35,7 @@ const updateTask = asyncWrapper(async (req, res, next) => {
   })
 
   if (!User) {
-    return next(createCustomError(`No user with id : ${req.params.id}`, 404))
+    res.status(400).json({msg:`No user with id : ${req.params.id}`})
   }
 
   res.status(200).json({ User })

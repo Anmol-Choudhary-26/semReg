@@ -20,11 +20,11 @@ const UserSchema = new mongoose.Schema({
   },
   year:{
     type: String,
-     enum: ['1st', '2nd', '3rd', '4th', '5th'], default: '1st' 
+   
   },
   Program:{
     type: String,
-     enum: ['B. Tech.', 'M. Tech.', 'B.Tech. + M. Tech.', 'PHD', 'MSc'], default: 'B. Tech.' 
+    
   },
   Phone_Number:{
     type:Number,
@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema({
   },
   Department:{
     type: String,
-    enum: ['Architecture', 'Civil Engineering', 'Computer Science & Engineering', 'Chemistry', 'Chemical Engineering', 'Electrical Engineering', 'Electronics & Communication Engineering', 'Mechanical Engineering', ' 	Material Science & Engineering', 'Mathematics & Scientific Computing', 'Humanities and Social Sciences', ' 	Management Studies', 'Physics & Photonics Science', 'Centre for Energy Studies'], default: 'Computer Science & Engineering', 
+  
   },
   Teacher:{
     type: mongoose.Schema.Types.ObjectId,
@@ -53,12 +53,11 @@ const UserSchema = new mongoose.Schema({
   },
   Gender:{
    type:String,
-   enum: ['Male', 'Female'],
-   default: 'Male'
+   
   },
   Caste:{
     type:String,
-    enum: ['General', 'Obc', 'Sc/St'], default:'General'
+
   },
   registrationCompleted:{
     type:Boolean,
