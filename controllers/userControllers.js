@@ -13,7 +13,7 @@ const createTask = asyncWrapper(async (req, res) => {
 })
 
 const getTask = asyncWrapper(async (req, res, next) => {
-  const User = await user.findOne({_id : req.params.id}).populate("Teacher")
+  const User = await user.findOne({fbid : req.params.id}).populate("Teacher")
   if (!User) {
    res.status(404).json({msg:`Not Present`})
   }
