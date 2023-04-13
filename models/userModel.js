@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-
+// const Teacher  = require('./teacherModel')
 const UserSchema = new mongoose.Schema({
-  _id:{
+  fbid:{
     type: String,
     required: true,
     unique: true
@@ -39,9 +39,8 @@ const UserSchema = new mongoose.Schema({
   },
   Department:{
     type: String,
-  
   },
-  Teacher:{
+  teacher:{
     type: mongoose.Schema.Types.ObjectId,
     ref:'Teacher'
   },

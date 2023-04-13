@@ -3,7 +3,7 @@ const asyncWrapper = require('../middleware/async')
 const { createCustomError } = require('../errors/custom-error')
 
 const getAllTasks = asyncWrapper(async (req, res) => {
-  const User = await user.find({})
+  const User = await user.find({}).populate("teacher")
   res.status(200).json( {User })
 })
 
@@ -13,7 +13,7 @@ const createTask = asyncWrapper(async (req, res) => {
 })
 
 const getTask = asyncWrapper(async (req, res, next) => {
-  const User = await user.findOne({_id : req.params.id})
+  const User = await user.findOne({_id : req.params.id}).populate("Teacher")
   if (!User) {
    res.status(404).json({msg:`Not Present`})
   }
@@ -32,7 +32,7 @@ const updateTask = asyncWrapper(async (req, res, next) => {
   const User = await user.findOneAndUpdate({_id: req.params.id}, req.body, {
     new: true,
     runValidators: true,
-  })
+  }).populate("Teacher")
 
   if (!User) {
     res.status(404).json({msg:`Not Present`})

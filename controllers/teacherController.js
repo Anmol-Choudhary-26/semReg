@@ -3,8 +3,9 @@ const TeacherModel = require('../models/teacherModel')
 const StudentModel = require('../models/userModel')
 let TeacherController = {
     find: async (req, res) =>{
-        let found = await TeacherController.find({name: req.params.id})
-        if(found){
+        let found = await TeacherModel.find({fbid: req.params.id}).populate("students")
+        // console.log( typeof found)
+        if(found.length != 0){
           res.json(found);
         }
         else{
@@ -12,7 +13,7 @@ let TeacherController = {
         }
     },
     all: async (req, res) => {
-        let all = await TeacherModel.find()
+        let all = await TeacherModel.find().populate("students")
         res.json(all);
     },
     create: async (req, res) => {   
@@ -23,7 +24,7 @@ let TeacherController = {
     getAllStudent: async (req, res) =>{
             try{
 
-                let allStudent = await StudentModel.find({Teacher: req.params.id}).sort({roll_no: -1})
+                let allStudent = await StudentModel.find({teacher: req.params.id}).sort({roll_no: -1}).populate("teacher")
                 res.json(allStudent)
             }
             catch(err){
@@ -32,7 +33,7 @@ let TeacherController = {
     },
     deleteTeacher: async (req, res) =>{
         try{
-            let deletedTeacher = await TeacherModel.findByIdAndDelete({_id:req.params.id})
+            let deletedTeacher = await TeacherModel.findByIdAndDelete({fbid:req.params.id})
             if (!deletedTeacher) {
               res.status(400).json({msg:"Teacher not found"})
               }
@@ -44,7 +45,7 @@ let TeacherController = {
     },
     UpdateTeacher: async (req, res) =>{
         try{
-            let UpdateTeacher = await TeacherModel.findByIdAndUpdate(req.params.id)
+            let UpdateTeacher = await TeacherModel.findByIdAndUpdate({fbid:req.params.id}).populate("students")
             if (!UpdateTeacher) {
               res.status(400).json({msg:"Teacher not found"})
     }
@@ -57,7 +58,7 @@ let TeacherController = {
 },
   sortStudent: async (req, res) =>{
     try {
-        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : true})
+        let allStudent = await StudentModel.find({Teacher: req.params.id, registrationCompleted : true}).populate("students")
         .sort({name: -1})
       res.status(200).json(allStudent);
     } catch (e) {
