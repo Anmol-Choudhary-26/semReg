@@ -63,7 +63,7 @@ const UserSchema = new mongoose.Schema({
     type:Boolean,
   },
   remark:{
-    type: String,
+    type: [String],
   }
 })
 
