@@ -4,12 +4,12 @@ const { createCustomError } = require('../errors/custom-error')
 
 const getAllTasks = asyncWrapper(async (req, res) => {
   const User = await user.find({}).populate("teacher")
-  res.status(200).json( {User })
+  res.status(200).json( User )
 })
 
 const createTask = asyncWrapper(async (req, res) => {
   const User = await user.create(req.body)
-  res.status(201).json({ User })
+  res.status(201).json( User )
 })
 
 const getTask = asyncWrapper(async (req, res, next) => {
@@ -18,7 +18,7 @@ const getTask = asyncWrapper(async (req, res, next) => {
    res.status(404).json({msg:`Not Present`})
   }
 
-  res.status(200).json({ User })
+  res.status(200).json( User )
 })
 
 const deleteTask = asyncWrapper(async (req, res, next) => {
@@ -26,7 +26,7 @@ const deleteTask = asyncWrapper(async (req, res, next) => {
   if (!User) {
     res.status(404).json({msg:`Not Present`})
   }
-  res.status(200).json({ User })
+  res.status(200).json( User )
 })
 const updateTask = asyncWrapper(async (req, res, next) => {
   const User = await user.findOneAndUpdate({_id: req.params.id}, req.body, {
@@ -38,7 +38,7 @@ const updateTask = asyncWrapper(async (req, res, next) => {
     res.status(404).json({msg:`Not Present`})
   }
 
-  res.status(200).json({ User })
+  res.status(200).json( User )
 })
 
 module.exports = {
