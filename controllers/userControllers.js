@@ -32,7 +32,7 @@ const updateTask = asyncWrapper(async (req, res, next) => {
   const User = await user.findOneAndUpdate({_id: req.params.id}, req.body, {
     new: true,
     runValidators: true,
-  }).populate("Teacher")
+  }).populate("teacher")
 
   if (!User) {
     res.status(404).json({msg:`Not Present`})
